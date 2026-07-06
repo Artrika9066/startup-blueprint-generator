@@ -1,0 +1,22 @@
+{
+  "name": "Startup Blueprint Generator",
+  "description": "Multi-Agent AI System built using IBM watsonx Orchestrate and IBM BOB",
+  "version": "1.0.0",
+  "domain": "Entrepreneurship / Business / AI",
+  "agents": [
+    "Startup Planner Agent",
+    "Market Intelligence Agent",
+    "Business Strategy Agent",
+    "Finance and Funding Agent",
+    "Go-To-Market Agent",
+    "Pitch Deck Agent"
+  ],
+  "technology": [
+    "IBM watsonx Orchestrate",
+    "IBM BOB",
+    "GPT-OSS 120B",
+    "IBM Granite",
+    "Python Flask"
+  ],
+  "github": "https://github.com/Artrika9066/startup-blueprint-generator"
+}
