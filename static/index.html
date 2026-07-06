@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Startup Blueprint Generator — IBM watsonx Orchestrate</title>
+  <meta name="description" content="Generate a complete startup blueprint powered by 6 IBM watsonx Orchestrate AI agents." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand" aria-label="Startup Blueprint Generator home">
+        <span class="nav-logo" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2L2 9v14l14 7 14-7V9L16 2zm0 2.236L28 10.5v11L16 27.764 4 21.5V10.5L16 4.236z"/>
+            <circle cx="16" cy="16" r="4"/>
+          </svg>
+        </span>
+        <span class="nav-title">Startup Blueprint Generator</span>
+        <span class="nav-badge">IBM watsonx Orchestrate</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── Hero + Input ────────────────────────────────────── -->
+  <section class="hero" id="hero-section" aria-labelledby="hero-heading">
+    <div class="hero-content">
+
+      <div class="hero-eyebrow" aria-hidden="true">
+        <span class="hero-eyebrow-dot"></span>
+        Multi-Agent AI System
+        <span class="hero-eyebrow-dot"></span>
+      </div>
+
+      <h1 id="hero-heading">
+        Turn your startup idea into<br />
+        <strong>a complete blueprint</strong>
+      </h1>
+
+      <p class="hero-subtitle">
+        Describe your startup idea below. Six specialised AI agents will
+        analyse your concept and deliver a fully structured blueprint — from
+        market intelligence to investor pitch deck.
+      </p>
+
+      <!-- Agent pills -->
+      <div class="agent-pills" role="list" aria-label="Active agents">
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">1</span>
+          Startup Planner
+        </span>
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">2</span>
+          Market Intelligence
+        </span>
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">3</span>
+          Business Strategy
+        </span>
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">4</span>
+          Finance &amp; Funding
+        </span>
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">5</span>
+          Go-To-Market
+        </span>
+        <span class="agent-pill" role="listitem">
+          <span class="agent-pill-icon" aria-hidden="true">6</span>
+          Pitch Deck
+        </span>
+      </div>
+
+      <!-- Input card -->
+      <div class="input-card" role="region" aria-label="Startup idea input">
+        <label class="input-label" for="idea-input">
+          Describe your startup idea
+        </label>
+        <p class="input-helper" id="idea-hint">
+          Be specific — mention the problem, who it's for, and the core solution.
+        </p>
+
+        <div class="input-wrapper">
+          <textarea
+            id="idea-input"
+            class="idea-input"
+            rows="4"
+            placeholder="e.g. An AI-powered personal finance coach for Gen-Z that analyses spending patterns, sets savings goals, and gamifies financial literacy through a mobile app integrated with open banking APIs."
+            aria-describedby="idea-hint"
+            maxlength="2000"
+            spellcheck="true"
+          ></textarea>
+        </div>
+
+        <!-- Optional context fields -->
+        <div class="input-row">
+          <div class="select-wrapper">
+            <label class="select-label" for="industry-select">Industry</label>
+            <select id="industry-select" class="idea-select">
+              <option value="">— Select industry —</option>
+              <option value="FinTech">FinTech</option>
+              <option value="HealthTech">HealthTech</option>
+              <option value="EdTech">EdTech</option>
+              <option value="SaaS">SaaS / B2B Software</option>
+              <option value="E-commerce">E-commerce</option>
+              <option value="CleanTech">CleanTech</option>
+              <option value="AI/ML">AI / Machine Learning</option>
+              <option value="Web3">Web3 / Blockchain</option>
+              <option value="Consumer">Consumer Apps</option>
+              <option value="Deep Tech">Deep Tech</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="select-chevron" aria-hidden="true">▼</span>
+          </div>
+
+          <div class="select-wrapper">
+            <label class="select-label" for="stage-select">Startup stage</label>
+            <select id="stage-select" class="idea-select">
+              <option value="">— Select stage —</option>
+              <option value="idea">Idea</option>
+              <option value="mvp">MVP</option>
+              <option value="growth">Growth</option>
+              <option value="scale">Scale</option>
+            </select>
+            <span class="select-chevron" aria-hidden="true">▼</span>
+          </div>
+        </div>
+
+        <div id="error-banner" class="error-banner" role="alert" aria-live="polite"></div>
+
+        <button
+          id="generate-btn"
+          class="generate-btn"
+          type="button"
+          aria-label="Generate startup blueprint"
+        >
+          <span class="btn-icon" aria-hidden="true">⚡</span>
+          Generate Blueprint
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Loading screen ──────────────────────────────────── -->
+  <section id="loading-section" aria-live="polite" aria-label="Blueprint generation in progress">
+    <div class="loading-spinner" role="img" aria-label="Loading spinner"></div>
+    <h2 class="loading-title">Generating your blueprint…</h2>
+    <p class="loading-subtitle" id="loading-subtitle">
+      Our 6 AI agents are working in parallel to analyse your startup idea.
+    </p>
+
+    <div class="agent-progress" role="list" aria-label="Agent progress">
+      <div class="agent-progress-item" id="prog-startup_plan" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Startup Planner Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+      <div class="agent-progress-item" id="prog-market_intelligence" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Market Intelligence Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+      <div class="agent-progress-item" id="prog-business_strategy" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Business Strategy Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+      <div class="agent-progress-item" id="prog-finance_funding" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Finance &amp; Funding Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+      <div class="agent-progress-item" id="prog-go_to_market" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Go-To-Market Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+      <div class="agent-progress-item" id="prog-pitch_deck" role="listitem">
+        <span class="progress-dot" aria-hidden="true"></span>
+        <span>Pitch Deck Agent</span>
+        <span class="progress-status">Pending</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Results section ─────────────────────────────────── -->
+  <section id="results-section" aria-label="Blueprint results">
+
+    <!-- Demo mode notice — shown/hidden by JS -->
+    <div id="demo-notice" class="demo-notice" style="display:none;" role="note">
+      <svg class="demo-notice-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 6v4M10 14h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span>
+        <strong>Demo mode</strong> — Connect to IBM watsonx Orchestrate API for live agent responses.
+        Set <code>DEMO_MODE=false</code> and add real credentials to <code>.env</code> to activate.
+      </span>
+    </div>
+
+    <div class="results-header">
+      <p class="results-eyebrow">Blueprint Complete</p>
+      <h2 class="results-title">Your Startup Blueprint</h2>
+      <div class="results-idea-display" id="results-idea-text" aria-label="Your startup idea"></div>
+      <div class="results-actions">
+        <button class="btn-secondary" id="copy-btn" type="button" aria-label="Copy full blueprint to clipboard">
+          📋 Copy Full Blueprint
+        </button>
+        <button class="btn-secondary" id="download-btn" type="button" aria-label="Download blueprint as text file">
+          ⬇ Download .txt
+        </button>
+        <button class="btn-secondary" id="new-btn" type="button" aria-label="Start a new blueprint">
+          ↩ New Blueprint
+        </button>
+      </div>
+    </div>
+
+    <div class="blueprint-grid" id="blueprint-grid" role="list" aria-label="Blueprint sections">
+      <!-- Cards injected by app.js -->
+    </div>
+
+  </section>
+
+  <!-- ── Restart bar (shown below results) ───────────────── -->
+  <div class="restart-bar" id="restart-bar" style="display:none;">
+    <p>Ready to explore another idea?</p>
+    <button class="btn-restart" id="restart-btn" type="button">
+      ⚡ Generate Another Blueprint
+    </button>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────────── -->
+  <footer id="main-footer">
+    <div class="footer-inner">
+      <span class="footer-left">
+        Startup Blueprint Generator &copy; <span id="footer-year"></span>
+      </span>
+      <div class="footer-right">
+        <span>Powered by IBM watsonx Orchestrate</span>
+        <span class="footer-dot" aria-hidden="true"></span>
+        <span>6-Agent AI System</span>
+        <span class="footer-dot" aria-hidden="true"></span>
+        <span>IBM Carbon Design</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
